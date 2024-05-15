@@ -1,6 +1,6 @@
 namespace stock_control_api.Enums
 {
-	public enum ProductStatus
+	public enum ProductStatusEnum
 	{
 		Available,
 		Preparing,

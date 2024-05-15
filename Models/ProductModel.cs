@@ -2,7 +2,7 @@ using stock_control_api.Enums;
 
 namespace stock_control_api.Models
 {
-	public class Product
+	public class ProductModel
 	{
 		public Guid Id { get; set; }
 		public required string Name { get; set; }
@@ -12,10 +12,10 @@ namespace stock_control_api.Models
 		public Guid CategoryId { get; set; }
 		public required string NrClient { get; set; }
 		public required string Observation { get; set; }
-		public ProductStatus Status { get; set; }
+		public ProductStatusEnum Status { get; set; }
 
-		public virtual Group? Group { get; set; }
-		public virtual Supplier? Supplier { get; set; }
-		public virtual Category? Category { get; set; }
+		public virtual GroupModel? Group { get; set; }
+		public virtual SupplierModel? Supplier { get; set; }
+		public virtual CategoryModel? Category { get; set; }
 	}
 }

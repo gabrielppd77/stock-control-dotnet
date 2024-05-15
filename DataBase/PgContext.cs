@@ -5,10 +5,10 @@ namespace FirstApi.DataBase
 {
 	public class PgContext : DbContext
 	{
-		public DbSet<Product> Product { get; set; }
-		public DbSet<Group> Group { get; set; }
-		public DbSet<Supplier> Supplier { get; set; }
-		public DbSet<Category> Category { get; set; }
+		public DbSet<ProductModel> Product { get; set; }
+		public DbSet<GroupModel> Group { get; set; }
+		public DbSet<SupplierModel> Supplier { get; set; }
+		public DbSet<CategoryModel> Category { get; set; }
 
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
