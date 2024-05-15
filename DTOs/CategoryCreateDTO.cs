@@ -1,4 +1,4 @@
 namespace stock_control_api.DTOs
 {
-	public record CategoryCreateDTO(string name);
+	public record CategoryCreateDTO(string Name);
 }

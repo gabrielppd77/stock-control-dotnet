@@ -19,7 +19,7 @@ namespace stock_control_api.Services
 			var newCategory = new Category()
 			{
 				Id = Guid.NewGuid(),
-				Name = category.name
+				Name = category.Name
 			};
 			await repository.AddCategory(newCategory);
 			await repository.SaveChanges();
@@ -54,7 +54,7 @@ namespace stock_control_api.Services
 				throw new BadHttpRequestException("Não foi possível encontrar a categoria");
 			}
 
-			categoryFinded.Name = category.name;
+			categoryFinded.Name = category.Name;
 
 			await repository.SaveChanges();
 		}

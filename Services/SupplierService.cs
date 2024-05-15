@@ -18,7 +18,7 @@ namespace stock_control_api.Services
 			var newSupplier = new Supplier()
 			{
 				Id = Guid.NewGuid(),
-				Name = supplier.name
+				Name = supplier.Name
 			};
 			await repository.AddSupplier(newSupplier);
 			await repository.SaveChanges();
@@ -36,7 +36,7 @@ namespace stock_control_api.Services
 
 			if (supplierFinded == null)
 			{
-				throw new BadHttpRequestException("Não foi possível encontrar a categoria");
+				throw new BadHttpRequestException("Não foi possível encontrar o fornecedor");
 			}
 
 			repository.Remove(supplierFinded);
@@ -50,10 +50,10 @@ namespace stock_control_api.Services
 
 			if (supplierFinded == null)
 			{
-				throw new BadHttpRequestException("Não foi possível encontrar a categoria");
+				throw new BadHttpRequestException("Não foi possível encontrar o fornecedor");
 			}
 
-			supplierFinded.Name = supplier.name;
+			supplierFinded.Name = supplier.Name;
 
 			await repository.SaveChanges();
 		}
