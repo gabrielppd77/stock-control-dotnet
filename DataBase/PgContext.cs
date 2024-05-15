@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using stock_control_api.Entities;
 
-namespace FirstApi.DataBase
+namespace stock_control_api.DataBase
 {
 	public class PgContext : DbContext
 	{

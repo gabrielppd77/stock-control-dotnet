@@ -1,5 +1,5 @@
-using FirstApi.DataBase;
 using Infra;
+using stock_control_api.DataBase;
 using stock_control_api.DataBase.Repositories;
 using stock_control_api.Services;
 
@@ -15,7 +15,10 @@ builder.Services.AddProblemDetails();
 builder.Services.AddScoped<PgContext>();
 
 builder.Services.AddScoped<CategoryService>();
+builder.Services.AddScoped<SupplierService>();
+
 builder.Services.AddScoped<CategoryRepository>();
+builder.Services.AddScoped<SupplierRepository>();
 
 var app = builder.Build();
 
