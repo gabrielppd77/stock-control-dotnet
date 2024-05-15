@@ -1,7 +1,6 @@
 using FirstApi.DataBase;
 using Microsoft.EntityFrameworkCore;
-using stock_control_api.DTOs;
-using stock_control_api.Models;
+using stock_control_api.Entities;
 
 namespace stock_control_api.DataBase.Repositories
 {
@@ -14,14 +13,24 @@ namespace stock_control_api.DataBase.Repositories
 			this.context = context;
 		}
 
-		public async Task AddCategory(CategoryModel newCategory)
+		internal async Task AddCategory(Category newCategory)
 		{
 			await context.AddAsync(newCategory);
 		}
 
-		public async Task<List<CategoryModel>> GetAll()
+		internal async Task<List<Category>> GetAll()
 		{
 			return await context.Category.AsNoTracking().ToListAsync();
+		}
+
+		internal async Task<Category?> GetById(Guid categoryId)
+		{
+			return await context.Category.FirstOrDefaultAsync(x => x.Id == categoryId);
+		}
+
+		internal void Remove(Category categoryFinded)
+		{
+			context.Remove(categoryFinded);
 		}
 
 		internal async Task SaveChanges()

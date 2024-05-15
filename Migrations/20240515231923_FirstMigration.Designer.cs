@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace stock_control_api.Migrations
 {
     [DbContext(typeof(PgContext))]
-    [Migration("20240515000742_FirstMigration")]
+    [Migration("20240515231923_FirstMigration")]
     partial class FirstMigration
     {
         /// <inheritdoc />
@@ -25,7 +25,7 @@ namespace stock_control_api.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("stock_control_api.Models.Category", b =>
+            modelBuilder.Entity("stock_control_api.Entities.Category", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -40,7 +40,7 @@ namespace stock_control_api.Migrations
                     b.ToTable("Category");
                 });
 
-            modelBuilder.Entity("stock_control_api.Models.Group", b =>
+            modelBuilder.Entity("stock_control_api.Entities.Group", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -58,7 +58,7 @@ namespace stock_control_api.Migrations
                     b.ToTable("Group");
                 });
 
-            modelBuilder.Entity("stock_control_api.Models.Product", b =>
+            modelBuilder.Entity("stock_control_api.Entities.Product", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -102,7 +102,7 @@ namespace stock_control_api.Migrations
                     b.ToTable("Product");
                 });
 
-            modelBuilder.Entity("stock_control_api.Models.Supplier", b =>
+            modelBuilder.Entity("stock_control_api.Entities.Supplier", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -117,21 +117,21 @@ namespace stock_control_api.Migrations
                     b.ToTable("Supplier");
                 });
 
-            modelBuilder.Entity("stock_control_api.Models.Product", b =>
+            modelBuilder.Entity("stock_control_api.Entities.Product", b =>
                 {
-                    b.HasOne("stock_control_api.Models.Category", "Category")
+                    b.HasOne("stock_control_api.Entities.Category", "Category")
                         .WithMany()
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("stock_control_api.Models.Group", "Group")
+                    b.HasOne("stock_control_api.Entities.Group", "Group")
                         .WithMany()
                         .HasForeignKey("GroupId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("stock_control_api.Models.Supplier", "Supplier")
+                    b.HasOne("stock_control_api.Entities.Supplier", "Supplier")
                         .WithMany()
                         .HasForeignKey("SupplierId")
                         .OnDelete(DeleteBehavior.Cascade)

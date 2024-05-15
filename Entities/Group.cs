@@ -1,6 +1,6 @@
-namespace stock_control_api.Models
+namespace stock_control_api.Entities
 {
-	public class GroupModel
+	public class Group
 	{
 		public Guid Id { get; set; }
 		public required string Name { get; set; }

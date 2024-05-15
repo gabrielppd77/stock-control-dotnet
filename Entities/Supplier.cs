@@ -1,6 +1,6 @@
-namespace stock_control_api.Models
+namespace stock_control_api.Entities
 {
-	public class CategoryModel
+	public class Supplier
 	{
 		public Guid Id { get; set; }
 		public required string Name { get; set; }

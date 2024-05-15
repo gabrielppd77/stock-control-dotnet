@@ -26,5 +26,17 @@ namespace stock_control_api
 		{
 			return await service.GetAll();
 		}
+
+		[HttpPut]
+		public async Task Update(Guid categoryId, CategoryUpdateDTO category)
+		{
+			await service.Update(categoryId, category);
+		}
+
+		[HttpDelete]
+		public async Task Remove(Guid categoryId)
+		{
+			await service.Remove(categoryId);
+		}
 	}
 }

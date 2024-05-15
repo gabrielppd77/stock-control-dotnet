@@ -1,7 +1,7 @@
 
 using stock_control_api.DataBase.Repositories;
 using stock_control_api.DTOs;
-using stock_control_api.Models;
+using stock_control_api.Entities;
 
 namespace stock_control_api.Services
 {
@@ -14,9 +14,9 @@ namespace stock_control_api.Services
 			this.repository = repository;
 		}
 
-		public async Task Create(CategoryCreateDTO category)
+		internal async Task Create(CategoryCreateDTO category)
 		{
-			var newCategory = new CategoryModel()
+			var newCategory = new Category()
 			{
 				Id = Guid.NewGuid(),
 				Name = category.name
@@ -25,10 +25,38 @@ namespace stock_control_api.Services
 			await repository.SaveChanges();
 		}
 
-		public async Task<List<CategoryDTO>> GetAll()
+		internal async Task<List<CategoryDTO>> GetAll()
 		{
 			var categories = await repository.GetAll();
 			return categories.Select(x => new CategoryDTO(x.Id, x.Name)).ToList();
+		}
+
+		internal async Task Remove(Guid categoryId)
+		{
+			var categoryFinded = await repository.GetById(categoryId);
+
+			if (categoryFinded == null)
+			{
+				throw new BadHttpRequestException("Não foi possível encontrar a categoria");
+			}
+
+			repository.Remove(categoryFinded);
+
+			await repository.SaveChanges();
+		}
+
+		internal async Task Update(Guid categoryId, CategoryUpdateDTO category)
+		{
+			var categoryFinded = await repository.GetById(categoryId);
+
+			if (categoryFinded == null)
+			{
+				throw new BadHttpRequestException("Não foi possível encontrar a categoria");
+			}
+
+			categoryFinded.Name = category.name;
+
+			await repository.SaveChanges();
 		}
 	}
 }

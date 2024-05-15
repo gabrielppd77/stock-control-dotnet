@@ -1,8 +1,8 @@
 using stock_control_api.Enums;
 
-namespace stock_control_api.Models
+namespace stock_control_api.Entities
 {
-	public class ProductModel
+	public class Product
 	{
 		public Guid Id { get; set; }
 		public required string Name { get; set; }
@@ -14,8 +14,8 @@ namespace stock_control_api.Models
 		public required string Observation { get; set; }
 		public ProductStatusEnum Status { get; set; }
 
-		public virtual GroupModel? Group { get; set; }
-		public virtual SupplierModel? Supplier { get; set; }
-		public virtual CategoryModel? Category { get; set; }
+		public virtual Group? Group { get; set; }
+		public virtual Supplier? Supplier { get; set; }
+		public virtual Category? Category { get; set; }
 	}
 }
