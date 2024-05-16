@@ -10,8 +10,8 @@ namespace stock_control_api.Entities
 		public Guid GroupId { get; set; }
 		public Guid SupplierId { get; set; }
 		public Guid CategoryId { get; set; }
-		public required string NrClient { get; set; }
-		public required string Observation { get; set; }
+		public string? NrClient { get; set; }
+		public string? Observation { get; set; }
 		public ProductStatusEnum Status { get; set; }
 
 		public virtual Group? Group { get; set; }
