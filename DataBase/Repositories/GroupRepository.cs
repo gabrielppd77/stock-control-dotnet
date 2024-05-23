@@ -14,12 +14,12 @@ namespace stock_control_api.DataBase.Repositories
 
 		internal async Task AddGroup(Group newGroup)
 		{
-			await context.AddAsync(newGroup);
+			await context.Group.AddAsync(newGroup);
 		}
 
 		internal async Task<List<Group>> GetAll()
 		{
-			return await context.Group.AsNoTracking().ToListAsync();
+			return await context.Group.AsNoTracking().OrderBy(x => x.Name).ToListAsync();
 		}
 
 		internal async Task<Group?> GetById(Guid groupId)
@@ -29,7 +29,7 @@ namespace stock_control_api.DataBase.Repositories
 
 		internal void Remove(Group groupFinded)
 		{
-			context.Remove(groupFinded);
+			context.Group.Remove(groupFinded);
 		}
 
 		internal async Task SaveChanges()

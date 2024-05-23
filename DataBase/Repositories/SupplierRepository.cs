@@ -14,12 +14,12 @@ namespace stock_control_api.DataBase.Repositories
 
 		internal async Task AddSupplier(Supplier newSupplier)
 		{
-			await context.AddAsync(newSupplier);
+			await context.Supplier.AddAsync(newSupplier);
 		}
 
 		internal async Task<List<Supplier>> GetAll()
 		{
-			return await context.Supplier.AsNoTracking().ToListAsync();
+			return await context.Supplier.AsNoTracking().OrderBy(x => x.Name).ToListAsync();
 		}
 
 		internal async Task<Supplier?> GetById(Guid supplierId)
@@ -29,7 +29,7 @@ namespace stock_control_api.DataBase.Repositories
 
 		internal void Remove(Supplier supplierFinded)
 		{
-			context.Remove(supplierFinded);
+			context.Supplier.Remove(supplierFinded);
 		}
 
 		internal async Task SaveChanges()

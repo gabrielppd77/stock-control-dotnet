@@ -14,12 +14,12 @@ namespace stock_control_api.DataBase.Repositories
 
 		internal async Task AddCategory(Category newCategory)
 		{
-			await context.AddAsync(newCategory);
+			await context.Category.AddAsync(newCategory);
 		}
 
 		internal async Task<List<Category>> GetAll()
 		{
-			return await context.Category.AsNoTracking().ToListAsync();
+			return await context.Category.AsNoTracking().OrderBy(x => x.Name).ToListAsync();
 		}
 
 		internal async Task<Category?> GetById(Guid categoryId)
@@ -29,7 +29,7 @@ namespace stock_control_api.DataBase.Repositories
 
 		internal void Remove(Category categoryFinded)
 		{
-			context.Remove(categoryFinded);
+			context.Category.Remove(categoryFinded);
 		}
 
 		internal async Task SaveChanges()

@@ -14,12 +14,12 @@ namespace stock_control_api.DataBase.Repositories
 
 		internal async Task AddProduct(Product newProduct)
 		{
-			await context.AddAsync(newProduct);
+			await context.Product.AddAsync(newProduct);
 		}
 
 		internal async Task<List<Product>> GetAll()
 		{
-			return await context.Product.AsNoTracking().ToListAsync();
+			return await context.Product.AsNoTracking().OrderBy(x => x.Name).ToListAsync();
 		}
 
 		internal async Task<Product?> GetById(Guid productId)
@@ -29,7 +29,7 @@ namespace stock_control_api.DataBase.Repositories
 
 		internal void Remove(Product productFinded)
 		{
-			context.Remove(productFinded);
+			context.Product.Remove(productFinded);
 		}
 
 		internal async Task SaveChanges()
