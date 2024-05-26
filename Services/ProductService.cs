@@ -20,7 +20,7 @@ namespace stock_control_api.Services
 			{
 				Id = Guid.NewGuid(),
 				Name = product.Name,
-				Code = product.Code,
+				Code = await repository.GetLastCode(),
 				GroupId = product.GroupId,
 				SupplierId = product.SupplierId,
 				CategoryId = product.CategoryId,
@@ -37,8 +37,8 @@ namespace stock_control_api.Services
 			var categories = await repository.GetAll();
 			return categories.Select(x => new ProductDTO(
 					x.Id,
-					x.Name,
 					x.Code,
+					x.Name,
 					x.GroupId,
 					x.SupplierId,
 					x.CategoryId,

@@ -12,6 +12,14 @@ namespace stock_control_api.DataBase.Repositories
 			this.context = context;
 		}
 
+		internal async Task<int> GetLastCode()
+		{
+			return await context.Category
+				.OrderBy(x => x.Code)
+				.Select(x => x.Code)
+				.LastOrDefaultAsync();
+		}
+
 		internal async Task AddCategory(Category newCategory)
 		{
 			await context.Category.AddAsync(newCategory);
@@ -19,7 +27,7 @@ namespace stock_control_api.DataBase.Repositories
 
 		internal async Task<List<Category>> GetAll()
 		{
-			return await context.Category.AsNoTracking().OrderBy(x => x.Name).ToListAsync();
+			return await context.Category.AsNoTracking().OrderBy(x => x.Code).ToListAsync();
 		}
 
 		internal async Task<Category?> GetById(Guid categoryId)

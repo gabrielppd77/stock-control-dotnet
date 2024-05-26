@@ -4,8 +4,8 @@ namespace stock_control_api.DTOs
 {
 	public record ProductDTO(
 		Guid Id,
-		string Name,
 		int Code,
+		string Name,
 		Guid GroupId,
 		Guid SupplierId,
 		Guid CategoryId,

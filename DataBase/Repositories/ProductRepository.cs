@@ -12,6 +12,14 @@ namespace stock_control_api.DataBase.Repositories
 			this.context = context;
 		}
 
+		internal async Task<int> GetLastCode()
+		{
+			return await context.Product
+				.OrderBy(x => x.Code)
+				.Select(x => x.Code)
+				.LastOrDefaultAsync();
+		}
+
 		internal async Task AddProduct(Product newProduct)
 		{
 			await context.Product.AddAsync(newProduct);
@@ -19,7 +27,7 @@ namespace stock_control_api.DataBase.Repositories
 
 		internal async Task<List<Product>> GetAll()
 		{
-			return await context.Product.AsNoTracking().OrderBy(x => x.Name).ToListAsync();
+			return await context.Product.AsNoTracking().OrderBy(x => x.Code).ToListAsync();
 		}
 
 		internal async Task<Product?> GetById(Guid productId)

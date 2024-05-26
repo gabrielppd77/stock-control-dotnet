@@ -1,4 +1,4 @@
 namespace stock_control_api.DTOs
 {
-	public record CategoryUpdateDTO(string Name);
+	public record CategoryUpdateDTO(int Code, string Name);
 }

@@ -18,7 +18,8 @@ namespace stock_control_api.Services
 			var newSupplier = new Supplier()
 			{
 				Id = Guid.NewGuid(),
-				Name = supplier.Name
+				Name = supplier.Name,
+				Code = await repository.GetLastCode()
 			};
 			await repository.AddSupplier(newSupplier);
 			await repository.SaveChanges();
@@ -27,7 +28,7 @@ namespace stock_control_api.Services
 		internal async Task<List<SupplierDTO>> GetAll()
 		{
 			var categories = await repository.GetAll();
-			return categories.Select(x => new SupplierDTO(x.Id, x.Name)).ToList();
+			return categories.Select(x => new SupplierDTO(x.Id, x.Code, x.Name)).ToList();
 		}
 
 		internal async Task Remove(Guid supplierId)
@@ -54,6 +55,7 @@ namespace stock_control_api.Services
 			}
 
 			supplierFinded.Name = supplier.Name;
+			supplierFinded.Code = supplier.Code;
 
 			await repository.SaveChanges();
 		}

@@ -19,7 +19,8 @@ namespace stock_control_api.Services
 			var newCategory = new Category()
 			{
 				Id = Guid.NewGuid(),
-				Name = category.Name
+				Name = category.Name,
+				Code = await repository.GetLastCode()
 			};
 			await repository.AddCategory(newCategory);
 			await repository.SaveChanges();
@@ -28,7 +29,7 @@ namespace stock_control_api.Services
 		internal async Task<List<CategoryDTO>> GetAll()
 		{
 			var categories = await repository.GetAll();
-			return categories.Select(x => new CategoryDTO(x.Id, x.Name)).ToList();
+			return categories.Select(x => new CategoryDTO(x.Id, x.Code, x.Name)).ToList();
 		}
 
 		internal async Task Remove(Guid categoryId)
@@ -55,6 +56,7 @@ namespace stock_control_api.Services
 			}
 
 			categoryFinded.Name = category.Name;
+			categoryFinded.Code = category.Code;
 
 			await repository.SaveChanges();
 		}

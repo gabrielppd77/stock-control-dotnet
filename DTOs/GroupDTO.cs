@@ -1,4 +1,4 @@
 namespace stock_control_api.DTOs
 {
-	public record GroupDTO(Guid Id, string Name, int Code);
+	public record GroupDTO(Guid Id, int Code, string Name);
 }
