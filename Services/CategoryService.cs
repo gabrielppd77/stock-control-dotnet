@@ -19,8 +19,8 @@ namespace stock_control_api.Services
 			var newCategory = new Category()
 			{
 				Id = Guid.NewGuid(),
+				Code = await repository.GetLastCode() + 1,
 				Name = category.Name,
-				Code = await repository.GetLastCode()
 			};
 			await repository.AddCategory(newCategory);
 			await repository.SaveChanges();

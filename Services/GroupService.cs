@@ -19,8 +19,8 @@ namespace stock_control_api.Services
 			var newGroup = new Group()
 			{
 				Id = Guid.NewGuid(),
+				Code = await repository.GetLastCode() + 1,
 				Name = group.Name,
-				Code = await repository.GetLastCode()
 			};
 			await repository.AddGroup(newGroup);
 			await repository.SaveChanges();

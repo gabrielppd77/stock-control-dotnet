@@ -18,8 +18,8 @@ namespace stock_control_api.Services
 			var newSupplier = new Supplier()
 			{
 				Id = Guid.NewGuid(),
+				Code = await repository.GetLastCode() + 1,
 				Name = supplier.Name,
-				Code = await repository.GetLastCode()
 			};
 			await repository.AddSupplier(newSupplier);
 			await repository.SaveChanges();

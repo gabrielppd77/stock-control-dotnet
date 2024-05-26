@@ -19,8 +19,8 @@ namespace stock_control_api.Services
 			var newProduct = new Product()
 			{
 				Id = Guid.NewGuid(),
+				Code = await repository.GetLastCode() + 1,
 				Name = product.Name,
-				Code = await repository.GetLastCode(),
 				GroupId = product.GroupId,
 				SupplierId = product.SupplierId,
 				CategoryId = product.CategoryId,
