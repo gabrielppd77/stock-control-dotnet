@@ -22,24 +22,6 @@ namespace stock_control_api.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("stock_control_api.Entities.Category", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<int>("Code")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Category");
-                });
-
             modelBuilder.Entity("stock_control_api.Entities.Group", b =>
                 {
                     b.Property<Guid>("Id")
@@ -53,7 +35,12 @@ namespace stock_control_api.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<Guid>("SupplierId")
+                        .HasColumnType("uuid");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("SupplierId");
 
                     b.ToTable("Group");
                 });
@@ -62,9 +49,6 @@ namespace stock_control_api.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("CategoryId")
                         .HasColumnType("uuid");
 
                     b.Property<int>("Code")
@@ -86,16 +70,9 @@ namespace stock_control_api.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("integer");
 
-                    b.Property<Guid>("SupplierId")
-                        .HasColumnType("uuid");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryId");
-
                     b.HasIndex("GroupId");
-
-                    b.HasIndex("SupplierId");
 
                     b.ToTable("Product");
                 });
@@ -118,31 +95,26 @@ namespace stock_control_api.Migrations
                     b.ToTable("Supplier");
                 });
 
-            modelBuilder.Entity("stock_control_api.Entities.Product", b =>
+            modelBuilder.Entity("stock_control_api.Entities.Group", b =>
                 {
-                    b.HasOne("stock_control_api.Entities.Category", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("stock_control_api.Entities.Group", "Group")
-                        .WithMany()
-                        .HasForeignKey("GroupId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("stock_control_api.Entities.Supplier", "Supplier")
                         .WithMany()
                         .HasForeignKey("SupplierId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Category");
+                    b.Navigation("Supplier");
+                });
+
+            modelBuilder.Entity("stock_control_api.Entities.Product", b =>
+                {
+                    b.HasOne("stock_control_api.Entities.Group", "Group")
+                        .WithMany()
+                        .HasForeignKey("GroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Group");
-
-                    b.Navigation("Supplier");
                 });
 #pragma warning restore 612, 618
         }

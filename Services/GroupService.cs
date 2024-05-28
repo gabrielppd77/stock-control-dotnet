@@ -21,15 +21,10 @@ namespace stock_control_api.Services
 				Id = Guid.NewGuid(),
 				Code = await repository.GetLastCode() + 1,
 				Name = group.Name,
+				SupplierId = group.SupplierId
 			};
 			await repository.AddGroup(newGroup);
 			await repository.SaveChanges();
-		}
-
-		internal async Task<List<GroupDTO>> GetAll()
-		{
-			var categories = await repository.GetAll();
-			return categories.Select(x => new GroupDTO(x.Id, x.Code, x.Name)).ToList();
 		}
 
 		internal async Task Remove(Guid groupId)
@@ -57,6 +52,7 @@ namespace stock_control_api.Services
 
 			groupFinded.Name = group.Name;
 			groupFinded.Code = group.Code;
+			groupFinded.SupplierId = group.SupplierId;
 
 			await repository.SaveChanges();
 		}

@@ -25,11 +25,6 @@ namespace stock_control_api.DataBase.Repositories
 			await context.Group.AddAsync(newGroup);
 		}
 
-		internal async Task<List<Group>> GetAll()
-		{
-			return await context.Group.AsNoTracking().OrderBy(x => x.Code).ToListAsync();
-		}
-
 		internal async Task<Group?> GetById(Guid groupId)
 		{
 			return await context.Group.FirstOrDefaultAsync(x => x.Id == groupId);

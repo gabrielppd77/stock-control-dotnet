@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using stock_control_api.DTOs;
 using stock_control_api.Entities;
 using stock_control_api.Enums;
 
@@ -27,22 +26,9 @@ namespace stock_control_api.DataBase.Repositories
 			return await context.Group.ToListAsync();
 		}
 
-		internal async Task<List<ProductDTO>> GetProducts(Guid groupId)
+		internal async Task<List<Product>> GetProducts(Guid groupId)
 		{
-			return await context.Product
-				.Where(x => x.GroupId == groupId)
-				.Select(x => new ProductDTO(
-					x.Id,
-					x.Code,
-					x.Name,
-					x.GroupId,
-					x.SupplierId,
-					x.CategoryId,
-					x.NrClient,
-					x.Observation,
-					x.Status
-				))
-				.ToListAsync();
+			return await context.Product.Where(x => x.GroupId == groupId).ToListAsync();
 		}
 	}
 }

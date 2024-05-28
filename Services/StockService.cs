@@ -25,7 +25,26 @@ namespace stock_control_api.Services
 				var soldCount = await repository.CountProductsByStatus(group.Id, Enums.ProductStatusEnum.Sold);
 				var products = await repository.GetProducts(group.Id);
 
-				stockGroups.Add(new StockGroupDTO(group.Id, group.Code, group.Name, avaiableCount, preparingCount, soldCount, products));
+				stockGroups.Add(new StockGroupDTO()
+				{
+					Id = group.Id,
+					SupplierId = group.SupplierId,
+					Code = group.Code,
+					Name = group.Name,
+					AvaiableCount = avaiableCount,
+					PreparingCount = preparingCount,
+					SoldCount = soldCount,
+					Products = products.Select(x => new ProductDTO()
+					{
+						Id = x.Id,
+						Code = x.Code,
+						Name = x.Name,
+						GroupId = x.GroupId,
+						NrClient = x.NrClient,
+						Observation = x.Observation,
+						Status = x.Status,
+					}).ToList()
+				});
 			}
 
 			return stockGroups;

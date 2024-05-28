@@ -8,7 +8,6 @@ namespace stock_control_api.DataBase
 		public DbSet<Product> Product { get; set; }
 		public DbSet<Group> Group { get; set; }
 		public DbSet<Supplier> Supplier { get; set; }
-		public DbSet<Category> Category { get; set; }
 
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{

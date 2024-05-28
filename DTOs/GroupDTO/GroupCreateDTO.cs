@@ -1,4 +1,8 @@
 namespace stock_control_api.DTOs
 {
-	public record GroupCreateDTO(string Name);
+	public class GroupCreateDTO
+	{
+		public Guid SupplierId { get; set; }
+		public required string Name { get; set; }
+	}
 }

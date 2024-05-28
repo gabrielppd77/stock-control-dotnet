@@ -22,8 +22,6 @@ namespace stock_control_api.Services
 				Code = await repository.GetLastCode() + 1,
 				Name = product.Name,
 				GroupId = product.GroupId,
-				SupplierId = product.SupplierId,
-				CategoryId = product.CategoryId,
 				NrClient = product.NrClient,
 				Observation = product.Observation,
 				Status = Enums.ProductStatusEnum.Available
@@ -35,17 +33,16 @@ namespace stock_control_api.Services
 		internal async Task<List<ProductDTO>> GetAll()
 		{
 			var categories = await repository.GetAll();
-			return categories.Select(x => new ProductDTO(
-					x.Id,
-					x.Code,
-					x.Name,
-					x.GroupId,
-					x.SupplierId,
-					x.CategoryId,
-					x.NrClient,
-					x.Observation,
-					x.Status
-				)).ToList();
+			return categories.Select(x => new ProductDTO()
+			{
+				Id = x.Id,
+				Code = x.Code,
+				Name = x.Name,
+				GroupId = x.GroupId,
+				NrClient = x.NrClient,
+				Observation = x.Observation,
+				Status = x.Status,
+			}).ToList();
 		}
 
 		internal async Task Remove(Guid productId)
@@ -74,8 +71,6 @@ namespace stock_control_api.Services
 			productFinded.Name = product.Name;
 			productFinded.Code = product.Code;
 			productFinded.GroupId = product.GroupId;
-			productFinded.SupplierId = product.SupplierId;
-			productFinded.CategoryId = product.CategoryId;
 			productFinded.NrClient = product.NrClient;
 			productFinded.Observation = product.Observation;
 			productFinded.Status = product.Status;

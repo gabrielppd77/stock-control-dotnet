@@ -28,7 +28,12 @@ namespace stock_control_api.Services
 		internal async Task<List<SupplierDTO>> GetAll()
 		{
 			var categories = await repository.GetAll();
-			return categories.Select(x => new SupplierDTO(x.Id, x.Code, x.Name)).ToList();
+			return categories.Select(x => new SupplierDTO()
+			{
+				Id = x.Id,
+				Code = x.Code,
+				Name = x.Name,
+			}).ToList();
 		}
 
 		internal async Task Remove(Guid supplierId)
