@@ -29,11 +29,13 @@ builder.Services.AddScoped<CategoryService>();
 builder.Services.AddScoped<SupplierService>();
 builder.Services.AddScoped<GroupService>();
 builder.Services.AddScoped<ProductService>();
+builder.Services.AddScoped<StockService>();
 
 builder.Services.AddScoped<CategoryRepository>();
 builder.Services.AddScoped<SupplierRepository>();
 builder.Services.AddScoped<GroupRepository>();
 builder.Services.AddScoped<ProductRepository>();
+builder.Services.AddScoped<StockRepository>();
 
 var app = builder.Build();
 
