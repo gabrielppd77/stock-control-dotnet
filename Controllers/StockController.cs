@@ -16,9 +16,9 @@ namespace stock_control_api.Controllers
 		}
 
 		[HttpGet()]
-		public async Task<List<StockGroupDTO>> GetGroups()
+		public async Task<List<StockGroupDTO>> GetGroups(Guid? supplierId)
 		{
-			return await service.GetGroups();
+			return await service.GetGroups(supplierId);
 		}
 	}
 }

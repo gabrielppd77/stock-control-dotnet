@@ -12,9 +12,9 @@ namespace stock_control_api.Services
 			this.repository = repository;
 		}
 
-		internal async Task<List<StockGroupDTO>> GetGroups()
+		internal async Task<List<StockGroupDTO>> GetGroups(Guid? supplierId)
 		{
-			var groups = await repository.GetGroups();
+			var groups = await repository.GetGroups(supplierId);
 
 			var stockGroups = new List<StockGroupDTO>();
 

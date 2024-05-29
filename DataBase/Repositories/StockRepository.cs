@@ -21,9 +21,16 @@ namespace stock_control_api.DataBase.Repositories
 				.CountAsync();
 		}
 
-		internal async Task<List<Group>> GetGroups()
+		internal async Task<List<Group>> GetGroups(Guid? supplierId)
 		{
-			return await context.Group.ToListAsync();
+			var query = context.Group.AsQueryable();
+
+			if (supplierId != null)
+			{
+				query = query.Where(x => x.SupplierId == supplierId);
+			}
+
+			return await query.ToListAsync();
 		}
 
 		internal async Task<List<Product>> GetProducts(Guid groupId)
