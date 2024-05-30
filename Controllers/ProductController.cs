@@ -21,12 +21,6 @@ namespace stock_control_api
 			await service.Create(product);
 		}
 
-		[HttpGet]
-		public async Task<List<ProductDTO>> GetAll()
-		{
-			return await service.GetAll();
-		}
-
 		[HttpPut]
 		public async Task Update(Guid productId, ProductUpdateDTO product)
 		{

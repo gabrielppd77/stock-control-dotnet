@@ -30,21 +30,6 @@ namespace stock_control_api.Services
 			await repository.SaveChanges();
 		}
 
-		internal async Task<List<ProductDTO>> GetAll()
-		{
-			var categories = await repository.GetAll();
-			return categories.Select(x => new ProductDTO()
-			{
-				Id = x.Id,
-				Code = x.Code,
-				Name = x.Name,
-				GroupId = x.GroupId,
-				NrClient = x.NrClient,
-				Observation = x.Observation,
-				Status = x.Status,
-			}).ToList();
-		}
-
 		internal async Task Remove(Guid productId)
 		{
 			var productFinded = await repository.GetById(productId);

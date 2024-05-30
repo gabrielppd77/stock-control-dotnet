@@ -30,12 +30,15 @@ namespace stock_control_api.DataBase.Repositories
 				query = query.Where(x => x.SupplierId == supplierId);
 			}
 
-			return await query.ToListAsync();
+			return await query.OrderBy(x => x.Code).ToListAsync();
 		}
 
 		internal async Task<List<Product>> GetProducts(Guid groupId)
 		{
-			return await context.Product.Where(x => x.GroupId == groupId).ToListAsync();
+			return await context.Product
+				.Where(x => x.GroupId == groupId)
+				.OrderBy(x => x.Code)
+				.ToListAsync();
 		}
 	}
 }

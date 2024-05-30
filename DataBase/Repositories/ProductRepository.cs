@@ -25,11 +25,6 @@ namespace stock_control_api.DataBase.Repositories
 			await context.Product.AddAsync(newProduct);
 		}
 
-		internal async Task<List<Product>> GetAll()
-		{
-			return await context.Product.AsNoTracking().OrderBy(x => x.Code).ToListAsync();
-		}
-
 		internal async Task<Product?> GetById(Guid productId)
 		{
 			return await context.Product.FirstOrDefaultAsync(x => x.Id == productId);

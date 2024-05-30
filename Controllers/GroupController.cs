@@ -21,6 +21,12 @@ namespace stock_control_api
 			await service.Create(group);
 		}
 
+		[HttpGet]
+		public async Task<List<GroupDTO>> GetAll(Guid? supplierId)
+		{
+			return await service.GetAll(supplierId);
+		}
+
 		[HttpPut]
 		public async Task Update(Guid groupId, GroupUpdateDTO group)
 		{

@@ -27,6 +27,18 @@ namespace stock_control_api.Services
 			await repository.SaveChanges();
 		}
 
+		internal async Task<List<GroupDTO>> GetAll(Guid? supplierId)
+		{
+			var groups = await repository.GetAll(supplierId);
+			return groups.Select(x => new GroupDTO()
+			{
+				Id = x.Id,
+				SupplierId = x.SupplierId,
+				Code = x.Code,
+				Name = x.Name,
+			}).ToList();
+		}
+
 		internal async Task Remove(Guid groupId)
 		{
 			var groupFinded = await repository.GetById(groupId);
