@@ -5,6 +5,5 @@ namespace stock_control_api.DTOs
 		public int AvaiableCount { get; set; }
 		public int PreparingCount { get; set; }
 		public int SoldCount { get; set; }
-		public List<ProductDTO> Products { get; set; } = new List<ProductDTO>();
 	}
 }

@@ -23,7 +23,6 @@ namespace stock_control_api.Services
 				var avaiableCount = await repository.CountProductsByStatus(group.Id, Enums.ProductStatusEnum.Available);
 				var preparingCount = await repository.CountProductsByStatus(group.Id, Enums.ProductStatusEnum.Preparing);
 				var soldCount = await repository.CountProductsByStatus(group.Id, Enums.ProductStatusEnum.Sold);
-				var products = await repository.GetProducts(group.Id);
 
 				stockGroups.Add(new StockGroupDTO()
 				{
@@ -34,20 +33,25 @@ namespace stock_control_api.Services
 					AvaiableCount = avaiableCount,
 					PreparingCount = preparingCount,
 					SoldCount = soldCount,
-					Products = products.Select(x => new ProductDTO()
-					{
-						Id = x.Id,
-						Code = x.Code,
-						Name = x.Name,
-						GroupId = x.GroupId,
-						NrClient = x.NrClient,
-						Observation = x.Observation,
-						Status = x.Status,
-					}).ToList()
 				});
 			}
 
 			return stockGroups;
+		}
+
+		internal async Task<List<ProductDTO>> GetProducts(Guid groupId)
+		{
+			var products = await repository.GetProducts(groupId);
+			return products.Select(x => new ProductDTO()
+			{
+				Id = x.Id,
+				Code = x.Code,
+				Name = x.Name,
+				GroupId = x.GroupId,
+				NrClient = x.NrClient,
+				Observation = x.Observation,
+				Status = x.Status,
+			}).ToList();
 		}
 	}
 }
