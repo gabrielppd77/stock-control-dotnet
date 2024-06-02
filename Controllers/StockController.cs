@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using stock_control_api.DTOs;
+using stock_control_api.Enums;
 using stock_control_api.Services;
 
 namespace stock_control_api.Controllers
@@ -21,10 +22,10 @@ namespace stock_control_api.Controllers
 			return await service.GetGroups(supplierId);
 		}
 
-		[HttpGet("GetProducts")]
-		public async Task<List<ProductDTO>> GetProducts(Guid groupId)
+		[HttpPost("GetProducts")]
+		public async Task<List<ProductDTO>> GetProducts(Guid groupId, List<ProductStatusEnum> status)
 		{
-			return await service.GetProducts(groupId);
+			return await service.GetProducts(groupId, status);
 		}
 	}
 }

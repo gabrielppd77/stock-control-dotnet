@@ -33,10 +33,11 @@ namespace stock_control_api.DataBase.Repositories
 			return await query.OrderBy(x => x.Code).ToListAsync();
 		}
 
-		internal async Task<List<Product>> GetProducts(Guid groupId)
+		internal async Task<List<Product>> GetProducts(Guid groupId, List<ProductStatusEnum> status)
 		{
 			return await context.Product
 				.Where(x => x.GroupId == groupId)
+				.Where(x => status.Contains(x.Status))
 				.OrderBy(x => x.Code)
 				.ToListAsync();
 		}

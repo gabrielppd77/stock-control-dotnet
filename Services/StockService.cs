@@ -1,5 +1,6 @@
 using stock_control_api.DataBase.Repositories;
 using stock_control_api.DTOs;
+using stock_control_api.Enums;
 
 namespace stock_control_api.Services
 {
@@ -39,9 +40,9 @@ namespace stock_control_api.Services
 			return stockGroups;
 		}
 
-		internal async Task<List<ProductDTO>> GetProducts(Guid groupId)
+		internal async Task<List<ProductDTO>> GetProducts(Guid groupId, List<ProductStatusEnum> status)
 		{
-			var products = await repository.GetProducts(groupId);
+			var products = await repository.GetProducts(groupId, status);
 			return products.Select(x => new ProductDTO()
 			{
 				Id = x.Id,
