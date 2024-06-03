@@ -72,16 +72,21 @@ namespace stock_control_api.Services
 				throw new BadHttpRequestException("Não foi possível encontrar o produto");
 			}
 
+			var lastCode = await repository.GetLastCode();
+
 			for (int i = 0; i < quantity; i++)
 			{
+				lastCode++;
 				await repository.AddProduct(
 					new Product()
 					{
 						Id = Guid.NewGuid(),
-						Code = await repository.GetLastCode() + 1,
+						Code = lastCode,
 						Name = product.Name,
 						GroupId = product.GroupId,
-						Status = Enums.ProductStatusEnum.Available
+						Status = product.Status,
+						NrClient = product.NrClient,
+						Observation = product.Observation
 					}
 				);
 			}
