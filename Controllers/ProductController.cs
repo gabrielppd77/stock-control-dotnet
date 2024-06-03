@@ -32,5 +32,11 @@ namespace stock_control_api
 		{
 			await service.Remove(productId);
 		}
+
+		[HttpPost("MultiplyProduct")]
+		public async Task MultiplyProduct(Guid productId, int quantity)
+		{
+			await service.MultiplyProduct(productId, quantity);
+		}
 	}
 }

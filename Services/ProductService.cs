@@ -62,5 +62,31 @@ namespace stock_control_api.Services
 
 			await repository.SaveChanges();
 		}
+
+		internal async Task MultiplyProduct(Guid productId, int quantity)
+		{
+			var product = await repository.GetById(productId);
+
+			if (product == null)
+			{
+				throw new BadHttpRequestException("Não foi possível encontrar o produto");
+			}
+
+			for (int i = 0; i < quantity; i++)
+			{
+				await repository.AddProduct(
+					new Product()
+					{
+						Id = Guid.NewGuid(),
+						Code = await repository.GetLastCode() + 1,
+						Name = product.Name,
+						GroupId = product.GroupId,
+						Status = Enums.ProductStatusEnum.Available
+					}
+				);
+			}
+
+			await repository.SaveChanges();
+		}
 	}
 }
