@@ -12,14 +12,24 @@ builder.Services.AddControllers();
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();
 
+var AllowAllOrigins = "AllowAllOrigins";
+var AllowOriginsProd = "AllowOriginsProd";
+
 builder.Services.AddCors(options =>
 {
-	options.AddPolicy("AllowAllOrigins",
+	options.AddPolicy(AllowAllOrigins,
 		builder =>
 		{
 			builder.AllowAnyOrigin()
 				   .AllowAnyMethod()
 				   .AllowAnyHeader();
+		});
+	options.AddPolicy(AllowOriginsProd,
+		builder =>
+		{
+			builder.WithOrigins("https://stock-control-fe-material.vercel.app")
+				.AllowAnyMethod()
+				.AllowAnyHeader();
 		});
 });
 
@@ -41,11 +51,17 @@ app.MapControllers();
 app.UseExceptionHandler();
 app.UseHttpsRedirection();
 
+app.MapGet("/", () => "Server is Living!");
+
 if (app.Environment.IsDevelopment())
 {
 	app.UseSwagger();
 	app.UseSwaggerUI();
-	app.UseCors("AllowAllOrigins");
+	app.UseCors(AllowAllOrigins);
+}
+else
+{
+	app.UseCors(AllowOriginsProd);
 }
 
 app.Run();
