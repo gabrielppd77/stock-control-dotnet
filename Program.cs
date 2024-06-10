@@ -12,25 +12,17 @@ builder.Services.AddControllers();
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();
 
-var AllowAllOrigins = "AllowAllOrigins";
-var AllowOriginsProd = "AllowOriginsProd";
+var CorsPolicy = "CorsPolicy";
+
+var allowedOrigins = builder.Configuration.GetSection("CorsSettings:AllowedOrigins").Get<string[]>();
 
 builder.Services.AddCors(options =>
 {
-	options.AddPolicy(AllowAllOrigins,
-		builder =>
-		{
-			builder.AllowAnyOrigin()
-				   .AllowAnyMethod()
-				   .AllowAnyHeader();
-		});
-	options.AddPolicy(AllowOriginsProd,
-		builder =>
-		{
-			builder.WithOrigins("https://stock-control-fe-material.vercel.app")
-				.AllowAnyMethod()
-				.AllowAnyHeader();
-		});
+	options.AddPolicy(CorsPolicy,
+		  builder => builder.WithOrigins(allowedOrigins ?? [])
+							.AllowAnyMethod()
+							.AllowAnyHeader()
+							.AllowCredentials());
 });
 
 builder.Services.AddScoped<PgContext>();
@@ -47,6 +39,7 @@ builder.Services.AddScoped<StockRepository>();
 
 var app = builder.Build();
 
+app.UseCors(CorsPolicy);
 app.MapControllers();
 app.UseExceptionHandler();
 app.UseHttpsRedirection();
@@ -57,11 +50,6 @@ if (app.Environment.IsDevelopment())
 {
 	app.UseSwagger();
 	app.UseSwaggerUI();
-	app.UseCors(AllowAllOrigins);
-}
-else
-{
-	app.UseCors(AllowOriginsProd);
 }
 
 app.Run();
