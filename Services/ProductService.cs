@@ -65,7 +65,7 @@ namespace stock_control_api.Services
 
 		internal async Task MultiplyProduct(Guid productId, int quantity)
 		{
-			if (quantity > 10)
+			if (quantity > 100)
 			{
 				throw new BadHttpRequestException("Não foi possível multiplicar o produto, quantidade máxima de 10 atingida");
 			}
